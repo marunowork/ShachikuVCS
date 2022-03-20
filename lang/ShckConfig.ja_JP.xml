@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings version="1.0">
+  <defaults Name="pgname" Type="String">社畜VCS</defaults>
+  <defaults Name="version" Type="String">社畜VCS for WinSCP</defaults>
+  <defaults Name="capt_lblHistory" Type="String">履歴一覧</defaults>
+  <defaults Name="capt_txtFindComment" Type="String">コメント検索</defaults>
+  <defaults Name="capt_btnClear" Type="String">クリア</defaults>
+  <defaults Name="capt_btnFind" Type="String">検索</defaults>
+  <defaults Name="capt_ttlRevisionID" Type="String">リビジョンID</defaults>
+  <defaults Name="capt_ttlFileName" Type="String">ファイル名</defaults>
+  <defaults Name="capt_ttlRemoteDirectory" Type="String">リモートディレクトリ</defaults>
+  <defaults Name="capt_ttlLocalPath" Type="String">ローカルパス</defaults>
+  <defaults Name="capt_ttlComment" Type="String">コメント</defaults>
+  <defaults Name="capt_ttlRevertFlag" Type="String">リバートFLG</defaults>
+  <defaults Name="capt_lblRevID" Type="String">リビジョンID</defaults>
+  <defaults Name="capt_lblRmtPath" Type="String">リモートパス</defaults>
+  <defaults Name="capt_lblComment" Type="String">コメント</defaults>
+  <defaults Name="capt_lblCmtComment" Type="String">コメントを入力してください</defaults>
+  <defaults Name="capt_btnCheckRcnt" Type="String">リモートファイルと比較</defaults>
+  <defaults Name="capt_btnCheckSel" Type="String">前回リビジョンとの差分を表示</defaults>
+  <defaults Name="capt_btnRevert" Type="String">リバート</defaults>
+  <defaults Name="capt_btnExport" Type="String">エクスポート</defaults>
+  <defaults Name="capt_btnComment" Type="String">コメント編集</defaults>
+  <defaults Name="capt_btnUpdate" Type="String">更新</defaults>
+  <defaults Name="capt_btnCommit" Type="String">コミット</defaults>
+  <defaults Name="capt_btnCan" Type="String">閉じる</defaults>
+  <defaults Name="capt_msgCfm" Type="String">本当によろしいですか？</defaults>
+</settings>
