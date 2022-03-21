@@ -21,8 +21,9 @@
   <defaults Name="capt_btnRevert" Type="String">リバート</defaults>
   <defaults Name="capt_btnExport" Type="String">エクスポート</defaults>
   <defaults Name="capt_btnComment" Type="String">コメント編集</defaults>
-  <defaults Name="capt_btnUpdate" Type="String">更新</defaults>
+  <defaults Name="capt_btnUpdate" Type="String">コメント更新</defaults>
   <defaults Name="capt_btnCommit" Type="String">コミット</defaults>
   <defaults Name="capt_btnCan" Type="String">閉じる</defaults>
+  <defaults Name="capt_btnCcl" Type="String">編集キャンセル</defaults>
   <defaults Name="capt_msgCfm" Type="String">本当によろしいですか？</defaults>
 </settings>
