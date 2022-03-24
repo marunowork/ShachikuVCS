@@ -15,6 +15,7 @@
   <defaults Name="capt_lblRevID" Type="String">リビジョンID</defaults>
   <defaults Name="capt_lblRmtPath" Type="String">リモートパス</defaults>
   <defaults Name="capt_lblComment" Type="String">コメント</defaults>
+  <defaults Name="capt_lblUsrName" Type="String">ユーザ名</defaults>
   <defaults Name="capt_lblCmtComment" Type="String">コメントを入力してください</defaults>
   <defaults Name="capt_btnCheckRcnt" Type="String">リモートファイルと比較</defaults>
   <defaults Name="capt_btnCheckSel" Type="String">前回リビジョンとの差分を表示</defaults>
