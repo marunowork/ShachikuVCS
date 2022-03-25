@@ -27,4 +27,5 @@
   <defaults Name="capt_btnCan" Type="String">閉じる</defaults>
   <defaults Name="capt_btnCcl" Type="String">編集キャンセル</defaults>
   <defaults Name="capt_msgCfm" Type="String">本当によろしいですか？</defaults>
+  <defaults Name="capt_msgReboot" Type="String">初期設定が完了しました。</defaults>
 </settings>
