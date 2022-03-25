@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<histories version="1.0">
+  <checklists>
+    <checkpoint Name="rev_id" Type="String"></checkpoint>
+    <checkpoint Name="file_name" Type="String"></checkpoint>
+    <checkpoint Name="remote_dir" Type="String"></checkpoint>
+    <checkpoint Name="local_dir" Type="String"></checkpoint>
+    <checkpoint Name="comment" Type="String"></checkpoint>
+    <checkpoint Name="revert_flg" Type="String"></checkpoint>
+  </checklists>
+</histories>
