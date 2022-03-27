@@ -6,6 +6,7 @@
   <defaults Name="capt_txtFindComment" Type="String">コメント検索</defaults>
   <defaults Name="capt_btnClear" Type="String">クリア</defaults>
   <defaults Name="capt_btnFind" Type="String">検索</defaults>
+  <defaults Name="capt_ttlDT" Type="String">日時</defaults>
   <defaults Name="capt_ttlRevisionID" Type="String">リビジョンID</defaults>
   <defaults Name="capt_ttlFileName" Type="String">ファイル名</defaults>
   <defaults Name="capt_ttlRemoteDirectory" Type="String">リモートディレクトリ</defaults>
