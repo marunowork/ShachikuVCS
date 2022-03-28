@@ -1,6 +1,7 @@
 # @name         ＶＣＳで管理する
 # @command      powershell.exe -ExecutionPolicy Bypass -file "%EXTENSION_PATH%" -SessionUrl "!E" -RepoFilePath "!/" -RepoFileName "/!" -pause
 # @description  社畜VCSメニュー画面を表示します
+# @flag         ShowResults 
 # @version      1
 # @shortcut     Shift+Ctrl+Alt+K
 # @homepage     https://github.com/marunowork/ShachikuVCS
