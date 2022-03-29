@@ -1,7 +1,7 @@
-# @name         ＶＣＳで管理する
+# @name         VCS MENU
 # @command      powershell.exe -ExecutionPolicy Bypass -file "%EXTENSION_PATH%" -SessionUrl "!E" -RepoFilePath "!/" -RepoFileName "/!" -pause
-# @description  社畜VCSメニュー画面を表示します
-# @flag         ShowResults 
+# @description  Start SHACHIKU life
+# @flag         ShowResultsInMsgBox 
 # @version      1
 # @shortcut     Shift+Ctrl+Alt+K
 # @homepage     https://github.com/marunowork/ShachikuVCS
@@ -16,7 +16,7 @@ Param (
     [string]$RepoFilePath,
     [Parameter(Mandatory = $True)]
     [string]$RepoFileName,
-    [Switch]$pause
+    [Switch]$pause=$false
 )
 $VS_DEBUG_MODE = $false
 if ($VS_DEBUG_MODE) {
@@ -45,6 +45,12 @@ $MAP_SHCKCONF = @(
         "Type" = "String" 
     },
     @{ "Name"  = "capt_btnFind"
+        "Type" = "String" 
+    },
+    @{ "Name"  = "capt_ttlDT"
+        "Type" = "String" 
+    },
+    @{ "Name"  = "capt_ttlUsrName"
         "Type" = "String" 
     },
     @{ "Name"  = "capt_ttlRevisionID"
@@ -101,6 +107,9 @@ $MAP_SHCKCONF = @(
     @{ "Name"  = "capt_btnCan"
         "Type" = "String" 
     },
+    @{ "Name"  = "capt_btnCcl"
+        "Type" = "String" 
+    },
     @{ "Name"  = "capt_msgCfm"
         "Type" = "String" 
     },
@@ -133,7 +142,7 @@ $MAP_REPOHISTORY = @(
 )
 
 <#
-デフォルト設定ファイル作成
+Setup ConfigFile
 #>
 function Set-ConfDef {
 
@@ -213,7 +222,7 @@ function Set-ConfDef {
 }
 
 <#
-デフォルト履歴ファイル作成
+Setup HistoryFile
 #>
 function Set-HistoryDef {
 
@@ -259,7 +268,7 @@ function Set-HistoryDef {
 }
 
 <#
-メッセージボックスを表示する
+Show Massage Box
 #>
 function Show-Msgbox(
     [string]$Text, `
@@ -273,7 +282,7 @@ function Show-Msgbox(
 }
 
 <#
-確認メッセージボックスを表示する
+Show Confirm Box
 #>
 function Show-MsgboxCfm(
     [string]$Text, `
@@ -289,8 +298,7 @@ function Show-MsgboxCfm(
 }
 
 <#
-基本設定ファイル読み込み
-※存在しない場合はHOMEディレクトリに作成する
+Get Config Parameter
 #>
 function Get-ShckConfig {
     [CmdletBinding()]
@@ -313,7 +321,7 @@ function Get-ShckConfig {
 }
 
 <#
-接続セッション取得
+Get WinSCP Session
 #>
 function Get-WSCPSession {
 
@@ -336,7 +344,7 @@ function Get-WSCPSession {
 }
 
 <#
-リポジトリファイルフォーマット取得
+Get RepoFile Format
 #>
 function Get-RepoFileFmt {
     Param (
@@ -356,7 +364,7 @@ function Get-RepoFileFmt {
 }
 
 <#
-リポジトリファイルのリバート
+Revert RepoFile
 #>
 function Redo-RepoFile {
     Param (
@@ -384,7 +392,7 @@ function Redo-RepoFile {
 }
 
 <#
-リポジトリファイルのエクスポート
+Import RepoFile
 #>
 function Import-RepoFile {
     Param (
@@ -422,7 +430,7 @@ function Import-RepoFile {
 }
 
 <#
-リポジトリファイルのコピー
+Copy RepoFile
 #>
 function Copy-ExportFile {
     Param (
@@ -458,7 +466,7 @@ function Copy-ExportFile {
 }
 
 <#
-XMLファイル書き込み追記
+Add History Data
 #>
 function Add-RepoHistory {
     [CmdletBinding()]
@@ -547,7 +555,7 @@ function Add-RepoHistory {
 }
 
 <#
-XMLファイル書き込み編集
+Edit History
 #>
 function Edit-RepoHistory {
     [CmdletBinding()]
@@ -626,7 +634,7 @@ function Edit-RepoHistory {
 }
 
 <#
-履歴作成
+Commit History
 #>
 function Push-RepoHistory {
     [CmdletBinding()]
@@ -673,7 +681,7 @@ function Push-RepoHistory {
 }
 
 <#
-LinqでDataTableからデータを抽出する
+Search History Data With Linq
 #>
 function Search-RepoHistory {
 
@@ -753,7 +761,7 @@ function Search-RepoHistory {
 }
 
 <#
-リモートファイルと比較
+Conpare Remote File
 #>
 function Show-DiffRemote { 
     Param (
@@ -781,7 +789,7 @@ function Show-DiffRemote {
 }
 
 <#
-前回リビジョンとの差分を表示
+Compare Last RepoFile
 #>
 function Show-DiffRepoLast { 
     Param (
@@ -821,7 +829,8 @@ function Show-DiffRepoLast {
 }
 
 <#
-Extensionスクリプト：ソース比較を呼び出す
+Call WinSCP Extensions
+(CompareFiles.WinSCPextension.ps1)
 #>
 function Invoke-WSCPExtCompFiles { 
     Param (
@@ -851,7 +860,7 @@ function Invoke-WSCPExtCompFiles {
 }
 
 <#
-メイン画面起動
+Show Main Menu
 #>
 function Start-ShckMain {
     [CmdletBinding()]
@@ -870,7 +879,7 @@ function Start-ShckMain {
     $isChkDisable = $true
 
     <#
-     フォーム定義
+    Form definition
     #>
     $appTitle = Get-ShckConfig "version"
     $form = New-Object System.Windows.Forms.Form -Property @{
@@ -1095,9 +1104,8 @@ function Start-ShckMain {
     }
 
     <#
-     無名関数定義
+    Lambda Function definition
     #>
-    # DataGridViewリクエリー
     $scrbFindGrid = {
         $Grid.Rows.Clear()
         foreach ($row in Search-RepoHistory $RemotefileName $txtFindComment.Text) { 
@@ -1149,9 +1157,8 @@ function Start-ShckMain {
     }
 
     <#
-     アクション定義
+    Action definition
     #>
-    ## グリッド行クリッククリック 
     $Grid.Add_CellMouseClick({
             $tbxComment.Text = $Grid.SelectedRows.Cells[6].Value
         }
