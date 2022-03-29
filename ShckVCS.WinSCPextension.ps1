@@ -1320,8 +1320,4 @@ catch {
     $result = 1
 }
 
-if ($pause) {
-    Write-Host "Press any key to exit..."
-    [System.Console]::ReadKey() | Out-Null
-}
 exit $result
