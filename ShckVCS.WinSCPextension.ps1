@@ -1,6 +1,6 @@
 # @name         VCS MENU
 # @command      powershell.exe -ExecutionPolicy Bypass -file "%EXTENSION_PATH%" -SessionUrl "!E" -RepoFilePath "!/" -RepoFileName "/!" -pause
-# @description  Show VCS MENU
+# @description  Start SHACHIKU life
 # @flag         RemoteFiles 
 # @version      1
 # @shortcut     Shift+Ctrl+Alt+K
@@ -215,7 +215,7 @@ function Set-ConfDef {
         }
     }
     catch {
-        Show-ConsoleLog "Error: $($_.Exception.Message)"
+        Write-Host "Error: $($_.Exception.Message)"
         return 1
     }
     return 0
@@ -263,16 +263,6 @@ function Set-HistoryDef {
     catch {
         Write-Host "Set-HistoryDef Error: $($_.Exception.Message)"
         return 1
-    }
-    return 0
-}
-
-function Show-ConsoleLog{
-    Param (
-        [string]$writeLog = ""
-    )
-    if($pause) {
-       Write-Host $writeLog
     }
     return 0
 }
@@ -344,11 +334,11 @@ function Get-WSCPSession {
 
     try {
         $getSession.Open($sessionOptions) 
-        Show-ConsoleLog "Get-WSCPSession: open session"
+        Write-Host "Get-WSCPSession: open session"
         return $getSession
     }
     catch {
-        Show-ConsoleLog "Get-WSCPSession Error: $($_.Exception.Message)"
+        Write-Host "Get-WSCPSession Error: $($_.Exception.Message)"
         return 1
     }
 }
@@ -368,7 +358,7 @@ function Get-RepoFileFmt {
         return $repoFileFmt
     }
     catch {
-        Show-ConsoleLog "Get-RepoFileFmt Error: $($_.Exception.Message)"
+        Write-Host "Get-RepoFileFmt Error: $($_.Exception.Message)"
         return 1
     }
 }
@@ -387,7 +377,7 @@ function Redo-RepoFile {
         
         $getSession = Get-WSCPSession
         $transferResult = $getSession.PutFiles($localPath, $rmtFilePath, $True)
-        Show-ConsoleLog "Redo-RepoFile ${rmtFilePath} -> ${localPath}"
+        Write-Host "Redo-RepoFile ${rmtFilePath} -> ${localPath}"
         $transferResult.Check()
 
         foreach ($transfer in $transferResult.Transfers) {
@@ -396,7 +386,7 @@ function Redo-RepoFile {
         }
     }
     catch {
-        Show-ConsoleLog "Redo-RepoFile Error: $($_.Exception.Message)"
+        Write-Host "Redo-RepoFile Error: $($_.Exception.Message)"
         return 1
     }
 }
@@ -429,12 +419,12 @@ function Import-RepoFile {
 
         $getSession = Get-WSCPSession
         $getSession.GetFiles($remoteFilePath, $backupFilePath).Check()
-        Show-ConsoleLog "Import-RepoFile ${remoteFilePath} -> ${backupFilePath}"
+        Write-Host "Import-RepoFile ${remoteFilePath} -> ${backupFilePath}"
 
         return 0
     }
     catch {
-        Show-ConsoleLog "Import-RepoFile Error: $($_.Exception.Message)"
+        Write-Host "Import-RepoFile Error: $($_.Exception.Message)"
         return 1
     }
 }
@@ -455,7 +445,7 @@ function Copy-ExportFile {
 
         $remoteFilePath = '{0}{1}' -f $remotePath, $remoteFile 
 
-        Show-ConsoleLog "Copy-ExportFile: ${remoteFilePath}"
+        Write-Host "Copy-ExportFile: ${remoteFilePath}"
 
         $repoDir = Get-ShckConfig "work_dir"
         if ([string]::IsNullOrEmpty($repoDir)) { return 1 }
@@ -465,12 +455,12 @@ function Copy-ExportFile {
 
         $backupFilePath = '{0}\{1}' -f $backUpDir, $remoteFile 
         
-        Show-ConsoleLog "Copy-ExportFile: ${repoFilePath} -> ${backupFilePath} "
+        Write-Host "Copy-ExportFile: ${repoFilePath} -> ${backupFilePath} "
         Copy-Item -Path $repoFilePath -Destination $backupFilePath
         return 0
     }
     catch {
-        Show-ConsoleLog "Copy-ExportFile Error: $($_.Exception.Message)"
+        Write-Host "Copy-ExportFile Error: $($_.Exception.Message)"
         return 1
     }
 }
@@ -553,12 +543,12 @@ function Add-RepoHistory {
             $doc.AppendChild($histories) | Out-Null
             $doc.Save($xmlHistoryFile) | Out-Null
 
-            Show-ConsoleLog "Add-RepoHistory:Success"
+            Write-Host "Add-RepoHistory:Success"
             return 0
         }
     }
     catch {
-        Show-ConsoleLog "Add-RepoHistory Error: $($_.Exception.Message)"
+        Write-Host "Add-RepoHistory Error: $($_.Exception.Message)"
         return 1
     }
 
@@ -632,12 +622,12 @@ function Edit-RepoHistory {
             $doc.AppendChild($histories) | Out-Null    
             $doc.Save($xmlHistoryFile) | Out-Null
 
-            Show-ConsoleLog "Edit-RepoHistory:Success"
+            Write-Host "Edit-RepoHistory:Success"
             $result = 0
         }
     }
     catch {
-        Show-ConsoleLog "Edit-RepoHistory Error: $($_.Exception.Message)"
+        Write-Host "Edit-RepoHistory Error: $($_.Exception.Message)"
         $result = 1
     }
     return $result
@@ -671,20 +661,20 @@ function Push-RepoHistory {
             $revert_flg = "0"
 
             Add-RepoHistory $rev_id $remoteFile $remotePath $local_dir $txtComment $USR_NAME $revert_flg
-            Show-ConsoleLog "Add-RepoHistory:Success"
+            Write-Host "Add-RepoHistory:Success"
 
             if (!(Test-Path -Path $local_dir)) {
                 New-Item $local_dir -ItemType Directory
             }
 
             Import-RepoFile $local_dir $rev_id $remotePath $remoteFile
-            Show-ConsoleLog "Import-RepoFile:Success"
+            Write-Host "Import-RepoFile:Success"
 
             $result = 0
         }
     }
     catch {
-        Show-ConsoleLog "Push-RepoHistory Error: $($_.Exception.Message)"
+        Write-Host "Push-RepoHistory Error: $($_.Exception.Message)"
         $result = 1
     }
     return $result
@@ -765,7 +755,7 @@ function Search-RepoHistory {
         }
     }
     catch {
-        Show-ConsoleLog "Search-RepoHistory Error: $($_.Exception.Message)"
+        Write-Host "Search-RepoHistory Error: $($_.Exception.Message)"
         return 1
     }
 }
@@ -783,16 +773,16 @@ function Show-DiffRemote {
         $getSession = Get-WSCPSession
         $tmpFileName = $remoteFilePath.Replace("/", "_")
         $cacheFilePath = $getSession.xmlLogPath.Replace(".tmp", $tmpFileName)
-        Show-ConsoleLog "L:${cacheFilePath} R:${remoteFilePath}"
+        Write-Host "L:${cacheFilePath} R:${remoteFilePath}"
 
         $getSession.GetFiles($remoteFilePath, $cacheFilePath).Check()
-        Show-ConsoleLog "L:${localPath} R:${cacheFilePath}"
+        Write-Host "L:${localPath} R:${cacheFilePath}"
 
         Invoke-WSCPExtCompFiles $localPath $cacheFilePath
         $result = 0
     }
     catch {
-        Show-ConsoleLog "Show-DiffRemote Error: $($_.Exception.Message)"
+        Write-Host "Show-DiffRemote Error: $($_.Exception.Message)"
         $result = 1
     }
     return $result 
@@ -832,7 +822,7 @@ function Show-DiffRepoLast {
         $result = 0
     }
     catch {
-        Show-ConsoleLog "Show-DiffRepoLast Error: $($_.Exception.Message)"
+        Write-Host "Show-DiffRepoLast Error: $($_.Exception.Message)"
         $result = 1
     }
     return $result 
@@ -852,7 +842,7 @@ function Invoke-WSCPExtCompFiles {
         $scpExtRoot = '{0}\Extensions' -f $WSCP_PATH 
 
         Set-Location -path $scpExtRoot
-        Show-ConsoleLog "L:${filePathLeft} R:${filePathRight}"        
+        Write-Host "L:${filePathLeft} R:${filePathRight}"        
     
         $params = "-localPath `"$filePathLeft`" -remotePath `"$filePathRight`" -tool `"WinMerge`"" 
 
@@ -863,7 +853,7 @@ function Invoke-WSCPExtCompFiles {
         $result = 0
     }
     catch {
-        Show-ConsoleLog "Invoke-WSCPExtCompFiles Error: $($_.Exception.Message)"
+        Write-Host "Invoke-WSCPExtCompFiles Error: $($_.Exception.Message)"
         $result = 1
     }
     return $result 
@@ -1236,7 +1226,7 @@ function Start-ShckMain {
                 $select_dir = $fbdSelect.SelectedPath
 
                 $result = Copy-ExportFile $select_dir $Grid.SelectedRows.Cells[0].Value $RemotefilePath $RemotefileName
-                Show-ConsoleLog "export success"
+                Write-Host "export success"
 
                 if ($result -eq 0) { $btnExport.Enabled = $true }
             }
@@ -1262,7 +1252,7 @@ function Start-ShckMain {
 
                 $result = Push-RepoHistory $RemotefilePath $RemotefileName $txtCmtComment.Text
                 . $scrbFindGrid
-                Show-ConsoleLog "commit success"
+                Write-Host "commit success"
                 if ($result -eq 0) {
                     $txtCmtComment.Text = ""
                     $btnCommit.Enabled = $true
@@ -1285,7 +1275,7 @@ function Start-ShckMain {
                 . $actBtnComment
                 
                 . $scrbFindGrid
-                Show-ConsoleLog "comment update"
+                Write-Host "comment update"
 
                 if ($result -eq 0) { $btnCommit.Enabled = $true }
             }
@@ -1326,8 +1316,12 @@ try {
 }
 catch {
 
-    Show-ConsoleLog "Main Error: $($_.Exception.Message)"
+    Write-Host "Main Error: $($_.Exception.Message)"
     $result = 1
 }
 
+if ($pause) {
+    Write-Host "Press any key to exit..."
+    [System.Console]::ReadKey() | Out-Null
+}
 exit $result
