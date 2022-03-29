@@ -1,12 +1,12 @@
 # @name         VCS MENU
 # @command      powershell.exe -ExecutionPolicy Bypass -file "%EXTENSION_PATH%" -SessionUrl "!E" -RepoFilePath "!/" -RepoFileName "/!" -pause
 # @description  Start SHACHIKU life
-# @flag         ShowResultsInMsgBox 
+# @flag         RemoteFiles 
 # @version      1
 # @shortcut     Shift+Ctrl+Alt+K
 # @homepage     https://github.com/marunowork/ShachikuVCS
 # @require      WinSCP 5.13.4
-# @option       - group "Options"
+# @option       Pause -config checkbox "&Pause at the end" -pause -pause
 
 using namespace System.Xml
 
@@ -16,7 +16,7 @@ Param (
     [string]$RepoFilePath,
     [Parameter(Mandatory = $True)]
     [string]$RepoFileName,
-    [Switch]$pause=$false
+    [Switch]$pause
 )
 $VS_DEBUG_MODE = $false
 if ($VS_DEBUG_MODE) {
