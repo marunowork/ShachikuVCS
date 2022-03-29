@@ -1,6 +1,6 @@
-# @name         VCS MENU
+# @name         VCSでソースを管理する
 # @command      powershell.exe -ExecutionPolicy Bypass -file "%EXTENSION_PATH%" -SessionUrl "!E" -RepoFilePath "!/" -RepoFileName "/!" -pause
-# @description  Start SHACHIKU life
+# @description  社畜VCSメニュー画面を表示します
 # @flag         RemoteFiles 
 # @version      1
 # @shortcut     Shift+Ctrl+Alt+K
@@ -1320,8 +1320,4 @@ catch {
     $result = 1
 }
 
-if ($pause) {
-    Write-Host "Press any key to exit..."
-    [System.Console]::ReadKey() | Out-Null
-}
 exit $result
