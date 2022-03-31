@@ -1,5 +1,5 @@
 # @name         VCS MENU
-# @command      powershell.exe -ExecutionPolicy Bypass -file "%EXTENSION_PATH%" -SessionUrl "!E" -RepoFilePath "!/" -RepoFileName "/!" -pause
+# @command      powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -file "%EXTENSION_PATH%" -SessionUrl "!E" -RepoFilePath "!/" -RepoFileName "/!" -pause
 # @description  Start SHACHIKU life
 # @flag         RemoteFiles 
 # @version      1
@@ -258,7 +258,11 @@ function Set-HistoryDef {
 
             Start-Sleep -Seconds 5
         }
-        return New-Object System.Data.Datatable
+
+        $getMsg = Get-ShckConfig "capt_msgReboot"
+        Show-Msgbox -text $getMsg
+
+        return 0
     }
     catch {
         Write-Host "Set-HistoryDef Error: $($_.Exception.Message)"
